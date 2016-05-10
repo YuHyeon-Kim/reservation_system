@@ -1,5 +1,7 @@
 package kr.hs.emirim.dbgus3577.reservationsystem;
 
+import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -52,6 +54,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        butStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chrono.setBase(SystemClock.elapsedRealtime());
+                chrono.start();
+                chrono.setTextColor(Color.RED);
+            }
+        });
+        butDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chrono.stop();
+                chrono.setTextColor(Color.BLUE);
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(calView.getDate());
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH)+1;
+                int date = cal.get(Calendar.DATE);
+                String dateAndTime = year+"년 "+month+"월 "+date+"일";
+                textResult.setText(dateAndTime);
+            }
+        });
 
     }
 }
